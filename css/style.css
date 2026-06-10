@@ -340,7 +340,7 @@ input:focus, select:focus {
   color: var(--text);
   letter-spacing: 0.3px;
 }
-.mode-card p  { font-size: 0.875rem; color: var(--text-muted); flex: 1; font-weight: 600; }
+.mode-card p  { font-size: 0.875rem; color: var(--text-muted); flex: 1; font-weight: 600; margin-bottom: 6px; }
 
 /* ── Setup ───────────────────────────────────────────────── */
 .setup-main {
@@ -737,8 +737,10 @@ input:focus, select:focus {
 
 .new-profile-form h3 {
   font-family: 'Fredoka One', cursive; font-size: 1rem;
-  color: var(--fairy-dark); margin-bottom: 14px; letter-spacing: 0.3px;
+  color: var(--fairy-dark); margin-bottom: 18px; letter-spacing: 0.3px;
 }
+
+.new-profile-form .btn-full { margin-top: 6px; }
 
 .mascot-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 20px; }
 
