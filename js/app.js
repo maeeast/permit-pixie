@@ -36,7 +36,9 @@ const App = (() => {
   }
 
   function uniqueValues(key) {
-    return [...new Set(QUESTIONS.map(q => q[key]))].sort();
+    return [...new Set(QUESTIONS.map(q => q[key]))].sort((a, b) =>
+      a.localeCompare(b, undefined, { numeric: true })
+    );
   }
 
   function topicsForSection(section) {
