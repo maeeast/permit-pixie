@@ -22,20 +22,20 @@
         </div>
 
         <div class="new-profile-form">
-          <h3>Add a New Driver</h3>
+          <h2>Add a New Driver</h2>
           <div class="field">
-            <label>🌟 Your Name</label>
+            <label for="new-profile-name">🌟 Your Name</label>
             <input type="text" id="new-profile-name" placeholder="e.g. Thistlewick Featherbottom" maxlength="30" />
           </div>
           <div class="field">
             <label>🎨 Pick a Mascot</label>
             <div class="mascot-picker" id="mascot-picker">
-              <button class="mascot-opt selected" data-mascot="🧚">🧚</button>
-              <button class="mascot-opt" data-mascot="🦄">🦄</button>
-              <button class="mascot-opt" data-mascot="🧙">🧙</button>
-              <button class="mascot-opt" data-mascot="🍄">🍄</button>
-              <button class="mascot-opt" data-mascot="🐉">🐉</button>
-              <button class="mascot-opt" data-mascot="🌟">🌟</button>
+              <button class="mascot-opt selected" data-mascot="🧚" aria-label="Fairy">🧚</button>
+              <button class="mascot-opt" data-mascot="🦄" aria-label="Unicorn">🦄</button>
+              <button class="mascot-opt" data-mascot="🧙" aria-label="Wizard">🧙</button>
+              <button class="mascot-opt" data-mascot="🍄" aria-label="Mushroom">🍄</button>
+              <button class="mascot-opt" data-mascot="🐉" aria-label="Dragon">🐉</button>
+              <button class="mascot-opt" data-mascot="🌟" aria-label="Star">🌟</button>
             </div>
           </div>
           <div id="new-profile-error" class="form-error hidden"></div>
@@ -43,14 +43,15 @@
         </div>
 
         <div class="divider-line"><span>or</span></div>
-
-        <h3 class="new-profile-form">Continue a Saved Profile</h3>
+        <div class="new-profile-form">
+          <h2>Continue a Saved Profile</h2>
+        </div>
         <div id="profile-list" class="profile-list"></div>
 
         <div class="divider-line"><span>or</span></div>
 
         <div class="import-section">
-          <h3>📂 Restore from Backup</h3>
+          <h2>📂 Restore from Backup</h2>
           <p class="setup-hint" style="margin-top:0;margin-bottom:12px">Load a previously saved <code>.json</code> backup file to restore your history.</p>
           <label class="import-drop-zone" id="import-drop-zone">
             <input type="file" id="import-file-input" accept=".json" style="display:none" onchange="App.handleImportFile(this)" />
@@ -139,11 +140,11 @@
         <h2>Choose a Topic</h2>
         <p class="setup-hint">The gnome wizard will guide you through it.</p>
         <div class="field">
-          <label>📖 Section</label>
+          <label for="study-section">📖 Section</label>
           <select id="study-section"><option value="">All Sections</option></select>
         </div>
         <div class="field">
-          <label>🍄 Topic</label>
+          <label for="study-topic">🍄 Topic</label>
           <select id="study-topic"><option value="">All Topics</option></select>
         </div>
         <button class="btn btn-primary btn-full" onclick="App.launchStudy()">Start Studying! 🧙</button>
@@ -161,11 +162,11 @@
         <h2>Set Up Your Quiz</h2>
         <p class="setup-hint">The fairy quizmaster is ready when you are.</p>
         <div class="field">
-          <label>📖 Section</label>
+          <label for="practice-section">📖 Section</label>
           <select id="practice-section"><option value="">All Sections</option></select>
         </div>
         <div class="field">
-          <label>🍄 Topic</label>
+          <label for="practice-topic">🍄 Topic</label>
           <select id="practice-topic"><option value="">All Topics</option></select>
         </div>
         <div class="field">

@@ -111,7 +111,7 @@ const App = (() => {
             <div class="profile-name">${p.name}</div>
             <div class="profile-stats">${statsText}</div>
           </div>
-          <button class="profile-delete" onclick="event.stopPropagation();App.deleteProfile('${p.id}')" title="Remove">🗑</button>
+          <button class="profile-delete" onclick="event.stopPropagation();App.deleteProfile('${p.id}')" aria-label="Remove ${p.name}" title="Remove">🗑</button>
         </div>`;
     }).join('');
   }

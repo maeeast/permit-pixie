@@ -22,6 +22,11 @@
   --mushroom-light:#E8FFF2;
   --mushroom-border:#80D0A0;
 
+  --gnome-text:   #8A6D2E;
+  --unicorn-text: #B8316A;
+  --success-text: #1F7A4D;
+  --danger-text:  #C5293F;
+
   --danger:       #E0405A;
   --danger-light: #FFF0F2;
   --success:      #3DAA70;
@@ -141,9 +146,9 @@ input, select {
 }
 
 input:focus, select:focus {
-  outline: none;
+  outline: 2px solid var(--fairy);
+  outline-offset: 1px;
   border-color: var(--fairy);
-  box-shadow: 0 0 0 3px rgba(156,64,192,0.12);
 }
 
 .form-error {
@@ -259,7 +264,7 @@ input:focus, select:focus {
   font-family: 'Fredoka One', cursive;
   font-size: 1rem;
   font-weight: 400;
-  color: var(--gnome);
+  color: var(--gnome-text);
   margin-bottom: 14px;
   letter-spacing: 0.3px;
 }
@@ -735,11 +740,13 @@ input:focus, select:focus {
   content: ''; flex: 1; height: 1px; background: var(--border);
 }
 
-.new-profile-form h3 {
-  font-family: 'Fredoka One', cursive; font-size: 1rem;
+.new-profile-form h2,
+.import-section h2 {
+  font-family: 'Fredoka One', cursive; font-size: 1rem; font-weight: 400;
   color: var(--fairy-dark); margin-bottom: 18px; letter-spacing: 0.3px;
 }
 
+.import-section h2 { margin-bottom: 6px; }
 .new-profile-form .btn-full { margin-top: 6px; }
 
 .mascot-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 20px; }
@@ -790,7 +797,7 @@ input:focus, select:focus {
 .history-chart-wrap h3 {
   font-family: 'Fredoka One', cursive;
   font-size: 1rem;
-  color: var(--unicorn);
+  color: var(--unicorn-text);
   margin-bottom: 10px;
   letter-spacing: 0.3px;
 }
@@ -804,8 +811,8 @@ input:focus, select:focus {
   flex-wrap: wrap;
 }
 
-.legend-pass  { color: var(--success); }
-.legend-fail  { color: var(--danger); }
+.legend-pass  { color: var(--success-text); }
+.legend-fail  { color: var(--danger-text); }
 .legend-line  { color: var(--fairy); }
 
 .chart-container {
@@ -953,13 +960,6 @@ input:focus, select:focus {
 }
 
 /* ── Import / Export ─────────────────────────────────────── */
-.import-section h3 {
-  font-family: 'Fredoka One', cursive;
-  font-size: 1rem;
-  color: var(--fairy-dark);
-  margin-bottom: 6px;
-  letter-spacing: 0.3px;
-}
 
 .import-drop-zone {
   display: flex;
