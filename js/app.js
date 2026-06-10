@@ -778,7 +778,7 @@ const App = (() => {
           if (current) enterHome(current);
         }
       } catch {
-        resultEl.textContent = '❌ Could not read file. Make sure it's a valid Maine Permit backup.';
+        resultEl.textContent = '❌ Could not read file. Make sure it is a valid Maine Permit backup.';
         resultEl.className   = 'import-result error';
       }
       // Reset the input so the same file can be re-selected
