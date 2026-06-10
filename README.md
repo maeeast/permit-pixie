@@ -1,9 +1,9 @@
-# Maine Permit Practice — GitHub Pages Edition 🧚
+# Maine Permit Practice - Whimsical Edition 🧚
 
 A fully static version of the Maine driver's permit practice app.
 No server, no build step, no dependencies. Pure HTML, CSS, and JavaScript.
 
-**Live demo:** `https://YOUR_USERNAME.github.io/maine-permit-static/`
+**Live demo:** `https://maeeast.github.io/maine-permit-static/`
 
 ---
 
