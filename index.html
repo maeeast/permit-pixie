@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maine Permit Practice 🧚</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ── Welcome / Profile Select ── -->
+    <div id="screen-welcome" class="screen active">
+      <div class="auth-container">
+        <div class="auth-logo">
+          <div class="logo-pine">🧚</div>
+          <h1>Maine Permit Practice</h1>
+          <p>Study with the woodland folk — pass your test!</p>
+        </div>
+
+        <div id="profile-list" class="profile-list"></div>
+
+        <div class="divider-line"><span>or</span></div>
+
+        <div class="new-profile-form">
+          <h3>Add a New Driver</h3>
+          <div class="field">
+            <label>🌟 Your Name</label>
+            <input type="text" id="new-profile-name" placeholder="e.g. Molly" maxlength="30" />
+          </div>
+          <div class="field">
+            <label>🎨 Pick a Mascot</label>
+            <div class="mascot-picker" id="mascot-picker">
+              <button class="mascot-opt selected" data-mascot="🧚">🧚</button>
+              <button class="mascot-opt" data-mascot="🦄">🦄</button>
+              <button class="mascot-opt" data-mascot="🧙">🧙</button>
+              <button class="mascot-opt" data-mascot="🍄">🍄</button>
+              <button class="mascot-opt" data-mascot="🐉">🐉</button>
+              <button class="mascot-opt" data-mascot="🌟">🌟</button>
+            </div>
+          </div>
+          <div id="new-profile-error" class="form-error hidden"></div>
+          <button class="btn btn-primary btn-full" onclick="App.addProfile()">Join the Woodland Folk! 🍄</button>
+        </div>
+
+        <div class="divider-line"><span>or</span></div>
+
+        <div class="import-section">
+          <h3>📂 Restore from Backup</h3>
+          <p class="setup-hint" style="margin-top:0;margin-bottom:12px">Load a previously saved <code>.json</code> backup file to restore your history.</p>
+          <label class="import-drop-zone" id="import-drop-zone">
+            <input type="file" id="import-file-input" accept=".json" style="display:none" onchange="App.handleImportFile(this)" />
+            <span class="import-drop-icon">📂</span>
+            <span class="import-drop-label">Click to choose a backup file</span>
+          </label>
+          <div id="import-result" class="import-result hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Home ── -->
+    <div id="screen-home" class="screen">
+      <header class="app-header">
+        <div class="header-left">
+          <span class="header-logo">🧚</span>
+          <span class="header-title">Maine Permit Practice</span>
+        </div>
+        <div class="header-right">
+          <span id="header-name" class="header-name"></span>
+          <button class="btn btn-ghost btn-sm" onclick="App.showHistory()">📜 History</button>
+          <button class="btn btn-ghost btn-sm" onclick="App.switchProfile()">Switch</button>
+        </div>
+      </header>
+
+      <main class="home-main">
+        <div class="welcome-banner">
+          <h2><span id="welcome-mascot"></span> Hey, <span id="welcome-name"></span>!</h2>
+          <p>The woodland folk are here to help you pass your Maine permit test.</p>
+        </div>
+
+        <!-- Stats strip (shown after first attempt) -->
+        <div id="stats-strip" class="stats-strip hidden">
+          <div class="stat-pill" id="stat-attempts"></div>
+          <div class="stat-pill" id="stat-best"></div>
+          <div class="stat-pill" id="stat-avg"></div>
+          <div class="stat-pill" id="stat-passed"></div>
+        </div>
+
+        <div id="progress-summary" class="progress-summary hidden">
+          <h3>🍄 Your Progress</h3>
+          <div id="topic-bars" class="topic-bars"></div>
+        </div>
+
+        <div class="mode-cards">
+          <div class="mode-card">
+            <div class="mode-icon">🧙</div>
+            <h3>Study Mode</h3>
+            <p>Learn with the gnome wizard — answers and explanations included</p>
+            <button class="btn btn-secondary" onclick="App.startStudy()">Start Studying</button>
+          </div>
+
+          <div class="mode-card">
+            <div class="mode-icon">🧚</div>
+            <h3>Practice Quiz</h3>
+            <p>The fairy quizmaster tests you on topics of your choice</p>
+            <button class="btn btn-secondary" onclick="App.startPractice()">Take a Quiz</button>
+          </div>
+
+          <div class="mode-card featured">
+            <div class="mode-badge">Full Test ✨</div>
+            <div class="mode-icon">🦄</div>
+            <h3>Mock Exam</h3>
+            <p>30 questions · Score 24/30 (80%) to earn the unicorn's approval</p>
+            <button class="btn btn-accent" onclick="App.startMock()">Take Mock Exam</button>
+          </div>
+
+          <div class="mode-card">
+            <div class="mode-icon">🍄</div>
+            <h3>Missed Questions</h3>
+            <p>Revisit the ones that stumped you — the mushrooms remember</p>
+            <button class="btn btn-secondary" onclick="App.startMissed()">Review Missed</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ── Study Setup ── -->
+    <div id="screen-study-setup" class="screen">
+      <header class="app-header">
+        <button class="btn btn-ghost btn-back" onclick="App.goHome()">← Back</button>
+        <span class="header-title">🧙 Study Mode</span>
+        <span></span>
+      </header>
+      <main class="setup-main">
+        <h2>Choose a Topic</h2>
+        <p class="setup-hint">The gnome wizard will guide you through it.</p>
+        <div class="field">
+          <label>📖 Section</label>
+          <select id="study-section"><option value="">All Sections</option></select>
+        </div>
+        <div class="field">
+          <label>🍄 Topic</label>
+          <select id="study-topic"><option value="">All Topics</option></select>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="App.launchStudy()">Start Studying! 🧙</button>
+      </main>
+    </div>
+
+    <!-- ── Practice Setup ── -->
+    <div id="screen-practice-setup" class="screen">
+      <header class="app-header">
+        <button class="btn btn-ghost btn-back" onclick="App.goHome()">← Back</button>
+        <span class="header-title">🧚 Practice Quiz</span>
+        <span></span>
+      </header>
+      <main class="setup-main">
+        <h2>Set Up Your Quiz</h2>
+        <p class="setup-hint">The fairy quizmaster is ready when you are.</p>
+        <div class="field">
+          <label>📖 Section</label>
+          <select id="practice-section"><option value="">All Sections</option></select>
+        </div>
+        <div class="field">
+          <label>🍄 Topic</label>
+          <select id="practice-topic"><option value="">All Topics</option></select>
+        </div>
+        <div class="field">
+          <label>✨ Number of Questions</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="practice-count" value="10" checked /> 10 Questions</label>
+            <label class="radio-option"><input type="radio" name="practice-count" value="20" /> 20 Questions</label>
+            <label class="radio-option"><input type="radio" name="practice-count" value="50" /> 50 Questions</label>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="App.launchPractice()">Let's Quiz! 🧚</button>
+      </main>
+    </div>
+
+    <!-- ── Study Screen ── -->
+    <div id="screen-study" class="screen">
+      <header class="app-header">
+        <button class="btn btn-ghost btn-back" onclick="App.goHome()">← Back</button>
+        <span class="header-title">🧙 Study Mode</span>
+        <span id="study-counter" class="counter"></span>
+      </header>
+      <main class="quiz-main">
+        <div class="study-card">
+          <div class="question-meta">
+            <span id="study-section-label" class="tag"></span>
+            <span id="study-topic-label" class="tag tag-alt"></span>
+          </div>
+          <div class="question-text" id="study-question"></div>
+          <div class="answer-list" id="study-answers"></div>
+          <div id="study-explanation" class="explanation hidden"></div>
+          <div class="study-nav">
+            <button class="btn btn-ghost" id="btn-study-prev" onclick="App.studyPrev()">← Prev</button>
+            <button class="btn btn-primary" id="btn-study-next" onclick="App.studyNext()">Next →</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ── Quiz Screen ── -->
+    <div id="screen-quiz" class="screen">
+      <header class="app-header">
+        <button class="btn btn-ghost btn-back" onclick="App.confirmQuit()">✕ Quit</button>
+        <span class="header-title" id="quiz-mode-label"></span>
+        <span id="quiz-counter" class="counter"></span>
+      </header>
+      <div class="quiz-progress-bar">
+        <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+      </div>
+      <main class="quiz-main">
+        <div class="question-meta">
+          <span id="quiz-section-label" class="tag"></span>
+          <span id="quiz-topic-label" class="tag tag-alt"></span>
+        </div>
+        <div class="question-text" id="quiz-question"></div>
+        <div class="answer-list" id="quiz-answers"></div>
+
+        <div id="confidence-block" class="confidence-block hidden">
+          <p class="confidence-label">🌟 How confident were you?</p>
+          <div class="confidence-options">
+            <button class="conf-btn" data-val="guessing" onclick="App.setConfidence(this)">🤷 Guessing</button>
+            <button class="conf-btn" data-val="somewhat" onclick="App.setConfidence(this)">🤔 Somewhat Sure</button>
+            <button class="conf-btn" data-val="sure"     onclick="App.setConfidence(this)">✅ Very Sure</button>
+          </div>
+        </div>
+
+        <button id="btn-next-question" class="btn btn-primary btn-full hidden" onclick="App.nextQuestion()">Next Question →</button>
+        <button id="btn-submit-quiz"   class="btn btn-accent  btn-full hidden" onclick="App.submitQuiz()">Submit Quiz 🦄</button>
+      </main>
+    </div>
+
+    <!-- ── Results Screen ── -->
+    <div id="screen-results" class="screen">
+      <header class="app-header">
+        <span></span>
+        <span class="header-title">🏆 Results</span>
+        <span></span>
+      </header>
+      <main class="results-main">
+        <div id="results-score-card" class="score-card"></div>
+
+        <div id="results-weak" class="weak-topics hidden">
+          <h3>🍄 Topics to Review</h3>
+          <div id="weak-list"></div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn btn-secondary" onclick="App.goHome()">← Back Home</button>
+          <button class="btn btn-ghost"     onclick="App.showHistory()">📜 History</button>
+          <button class="btn btn-primary"   onclick="App.retakeQuiz()">Try Again! 🧚</button>
+        </div>
+
+        <div class="review-section">
+          <h3>📖 Question Review</h3>
+          <div id="review-list"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ── History Screen ── -->
+    <div id="screen-history" class="screen">
+      <header class="app-header">
+        <button class="btn btn-ghost btn-back" onclick="App.goHome()">← Back</button>
+        <span class="header-title">📜 Exam History</span>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-secondary btn-sm" onclick="App.exportProfile()">💾 Save Backup</button>
+          <button class="btn btn-ghost btn-sm" onclick="App.clearHistory()">Clear</button>
+        </div>
+      </header>
+      <main class="history-main">
+
+        <!-- Mock exam trend chart -->
+        <div id="history-chart-wrap" class="history-chart-wrap hidden">
+          <h3>🦄 Mock Exam Scores</h3>
+          <div class="chart-legend">
+            <span class="legend-pass">● Pass (≥24)</span>
+            <span class="legend-fail">● Fail (&lt;24)</span>
+            <span class="legend-line">— Trend</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="history-chart" height="160"></canvas>
+          </div>
+        </div>
+
+        <!-- Summary stats cards -->
+        <div id="history-stats" class="history-stats hidden">
+          <div class="hstat-card" id="hstat-total"></div>
+          <div class="hstat-card" id="hstat-mocks"></div>
+          <div class="hstat-card" id="hstat-best"></div>
+          <div class="hstat-card" id="hstat-avg"></div>
+          <div class="hstat-card" id="hstat-passed"></div>
+        </div>
+
+        <!-- Attempt list -->
+        <div id="history-list"></div>
+
+        <!-- Attempt detail (shown inline) -->
+        <div id="attempt-detail" class="attempt-detail hidden">
+          <div class="attempt-detail-header">
+            <button class="btn btn-ghost btn-sm" onclick="App.closeAttemptDetail()">← Back to History</button>
+            <span id="attempt-detail-title" class="attempt-detail-title"></span>
+          </div>
+          <div id="attempt-detail-body"></div>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <script src="data/questions.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
