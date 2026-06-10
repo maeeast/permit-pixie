@@ -55,11 +55,11 @@ body {
 .screen.active { display: flex; }
 
 /* ── Auth ────────────────────────────────────────────────── */
-#screen-auth {
+#screen-auth, #screen-welcome {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #F5E8FF 0%, #FFE8F4 50%, #FFF8E7 100%);
-  padding: 24px;
+  padding: 32px 24px;
   min-height: 100vh;
 }
 
@@ -121,7 +121,7 @@ body {
 /* ── Forms ───────────────────────────────────────────────── */
 .auth-form { display: flex; flex-direction: column; gap: 16px; }
 
-.field { display: flex; flex-direction: column; gap: 6px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .field label {
   font-size: 0.85rem;
   font-weight: 700;
@@ -740,7 +740,7 @@ input:focus, select:focus {
   color: var(--fairy-dark); margin-bottom: 14px; letter-spacing: 0.3px;
 }
 
-.mascot-picker { display: flex; gap: 8px; flex-wrap: wrap; }
+.mascot-picker { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; margin-bottom: 20px; }
 
 .mascot-opt {
   width: 44px; height: 44px; border-radius: 12px;
